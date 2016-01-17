@@ -21,25 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.Accounts;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.Annotations;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.Concept;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.ConceptMetadata;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.Concepts;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.Corpora;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.Corpus;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.CorpusProcessingState;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.CorpusStats;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.Document;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.DocumentAnnotations;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.DocumentProcessingStatus;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.Documents;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.Graph;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.Graphs;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.Matches;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.QueryConcepts;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.RequestedFields;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.Scores;
+import com.ibm.watson.developer_cloud.concept_insights.v2.model.*;
 import com.ibm.watson.developer_cloud.concept_insights.v2.util.IDHelper;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
@@ -51,6 +33,10 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.ibm.watson.developer_cloud.util.Validate;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The IBM Watson™ Concept Insights service provides APIs that enable you to work with concepts and
@@ -263,12 +249,14 @@ public class ConceptInsights extends WatsonService {
 
     if (parameters.get(CONCEPT_FIELDS) != null) {
       final RequestedFields fields = (RequestedFields) parameters.get(CONCEPT_FIELDS);
+      System.out.println("cfields = " + fields);
       if (fields != null && !fields.isEmpty())
         queryParams.put(CONCEPT_FIELDS, toJson(fields.getFields()));
     }
 
     if (parameters.get(DOCUMENT_FIELDS) != null) {
       final RequestedFields fields = (RequestedFields) parameters.get(DOCUMENT_FIELDS);
+      System.out.println("dfields = " + fields);
       if (fields != null && !fields.isEmpty())
         queryParams.put(DOCUMENT_FIELDS, toJson(fields.getFields()));
     }
@@ -348,7 +336,10 @@ public class ConceptInsights extends WatsonService {
         requestBuilder.withQuery(entry.getKey(), entry.getValue());
       }
     }
-    return executeRequest(requestBuilder.build(), returnType);
+    Request request = requestBuilder.build();
+//    System.out.println("request = " + request);
+//    System.out.println("request = " + request.urlString());
+    return executeRequest(request, returnType);
   }
 
   /**
@@ -400,10 +391,19 @@ public class ConceptInsights extends WatsonService {
    *        </ul>
    * @return {@link Concepts}
    */
-  public Concepts getConceptRelatedConcepts(final Concept concept,
-      final Map<String, Object> parameters) {
-    final String conceptId = IDHelper.getConceptId(concept);
+//  public Concepts getConceptRelatedConcepts(final Concept concept,
+//      final Map<String, Object> parameters)
+//  {
+//  }
 
+  public Concepts getConceptRelatedConcepts(Concept concept, Map<String, Object> parameters)
+  {
+    final String conceptId = IDHelper.getConceptId(concept);
+    return getConceptRelatedConcepts(conceptId, parameters);
+  }
+
+  public Concepts getConceptRelatedConcepts(String conceptId, Map<String, Object> parameters)
+  {
     final Map<String, Object> queryParameters = new HashMap<String, Object>();
     final String[] queryParms = new String[] {LEVEL, LIMIT};
     for (final String param : queryParms) {
@@ -659,19 +659,25 @@ public class ConceptInsights extends WatsonService {
    * concepts.
    * 
    * @param concept Concept the concept object,
-   * @param concepts Array of concept IDs, each identifying a concept.
+   * @param conceptIds Array of concept IDs, each identifying a concept.
    * 
    * @return {@link Scores}
    */
-  public Scores getGraphRelationScores(final Concept concept, final List<String> concepts) {
+  public Scores getGraphRelationScores(final Concept concept, final List<String> conceptIds)
+  {
     final String conceptId = IDHelper.getConceptId(concept);
-    Validate.notEmpty(concepts, "concepts cannot be empty");
+    return getGraphRelationScores(conceptId, conceptIds);
+  }
+
+  public Scores getGraphRelationScores(final String conceptId, final List<String> conceptIds)
+  {
+    Validate.notEmpty(conceptIds, "concepts cannot be empty");
 
     final Map<String, Object> queryParameters = new HashMap<String, Object>();
     final JsonObject contentJson = new JsonObject();
     final JsonArray conceptsJson = new JsonArray();
 
-    for (final String value : concepts) {
+    for (final String value : conceptIds) {
       conceptsJson.add(new JsonPrimitive(value));
     }
     contentJson.add(CONCEPTS, conceptsJson);

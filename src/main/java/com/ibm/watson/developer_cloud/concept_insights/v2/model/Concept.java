@@ -53,13 +53,13 @@ public class Concept extends GenericModel {
    * Instantiates a new concept.
    * 
    * @param graph the graph
-   * @param concept the concept
+   * @param conceptName the conceptName
    */
-  public Concept(final Graph graph, final String concept) {
+  public Concept(final Graph graph, final String conceptName) {
     Validate.notNull(graph, "graph cannot be null");
     Validate.notNull(graph.getId(), "graph.id cannot be null");
-    setName(concept);
-    setId(graph.getId() + "/concepts/" + concept);
+    setName(conceptName);
+    setId(graph.getId() + "/concepts/" + conceptName);
   }
 
   /**

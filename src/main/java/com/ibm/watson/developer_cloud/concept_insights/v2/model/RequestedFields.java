@@ -13,11 +13,12 @@
  */
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * RequestedFields returned by the {@link ConceptInsights} service.
@@ -71,5 +72,10 @@ public class RequestedFields extends GenericModel {
    */
   public boolean isEmpty() {
     return fields == null || fields.isEmpty();
+  }
+
+  @Override
+  public String toString() {
+    return GsonSingleton.getGson().toJson(this.fields);
   }
 }

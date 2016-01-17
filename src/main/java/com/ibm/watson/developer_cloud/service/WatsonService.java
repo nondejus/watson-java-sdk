@@ -13,14 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.service;
 
-import java.io.IOException;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -36,8 +28,16 @@ import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.*;
 import com.squareup.okhttp.Request.Builder;
-import com.squareup.okhttp.Response;
+
+import java.io.IOException;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Watson service abstract common functionality of various Watson Services. It handle authentication
@@ -180,6 +180,23 @@ public abstract class WatsonService {
    */
   protected <T extends GenericModel> T executeRequest(Request request, Class<T> returnType) {
     final Response response = execute(request);
+//    System.out.println("response = " + response);
+//    System.out.println("response headers = " + response.headers());
+//    System.out.println("response body = " + response.body());
+    // don't read body here, you can do that only once
+//    try {
+//      System.out.println("response body source = " + response.body().source().readUtf8());
+//      System.out.println("response body source = " + response.body().source().readUtf8());
+//    } catch (IOException e) {
+//      System.err.println("body source fetching failed dude");
+//      e.printStackTrace();
+//    }
+//    try {
+//      System.out.println("response body = " + response.body().string());
+//    } catch (IOException e) {
+//      System.err.println("body fetching failed dude");
+//      e.printStackTrace();
+//    }
     return ResponseUtil.getObject(response, returnType);
   }
 
