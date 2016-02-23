@@ -13,10 +13,10 @@
  */
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
+import java.util.Date;
 
 /**
  * The Class CorpusStats.
@@ -33,6 +33,9 @@ public class CorpusStats extends GenericModel {
   /** The top tags. */
   @SerializedName("top_tags")
   private TopTags topTags;
+
+  @SerializedName("documents")
+  private int documentCount;
 
   /**
    * Gets the id.
@@ -86,5 +89,15 @@ public class CorpusStats extends GenericModel {
    */
   public void setTopTags(TopTags topTags) {
     this.topTags = topTags;
+  }
+
+  public int getDocumentCount()
+  {
+    return documentCount;
+  }
+
+  public void setDocumentCount(int documentCount)
+  {
+    this.documentCount = documentCount;
   }
 }

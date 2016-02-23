@@ -13,15 +13,15 @@
  */
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validate;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Document returned by the {@link ConceptInsights} service.
@@ -62,7 +62,7 @@ public class Document extends GenericModel {
 
   /**
    * Instantiates a new document.
-   * 
+   *
    * @param corpus the corpus
    * @param document the document
    */
@@ -75,7 +75,7 @@ public class Document extends GenericModel {
 
   /**
    * Instantiates a new document.
-   * 
+   *
    * @param accountId the account id
    * @param corpusName the corpus name
    * @param document the document
@@ -88,7 +88,7 @@ public class Document extends GenericModel {
 
   /**
    * Adds a {@link Part}.
-   * 
+   *
    * @param part the part
    */
   public void addParts(Part part) {
@@ -100,7 +100,7 @@ public class Document extends GenericModel {
 
   /**
    * Gets the expires on.
-   * 
+   *
    * @return the expiresOn
    */
   public Date getExpiresOn() {
@@ -109,7 +109,7 @@ public class Document extends GenericModel {
 
   /**
    * Gets the id.
-   * 
+   *
    * @return The id
    */
   public String getId() {
@@ -118,7 +118,7 @@ public class Document extends GenericModel {
 
   /**
    * Gets the label.
-   * 
+   *
    * @return The label
    */
   public String getLabel() {
@@ -127,7 +127,7 @@ public class Document extends GenericModel {
 
   /**
    * Gets the last modified.
-   * 
+   *
    * @return The lastModified
    */
   public Date getLastModified() {
@@ -136,7 +136,7 @@ public class Document extends GenericModel {
 
   /**
    * Gets the name.
-   * 
+   *
    * @return The name
    */
   public String getName() {
@@ -145,7 +145,7 @@ public class Document extends GenericModel {
 
   /**
    * Gets the parts.
-   * 
+   *
    * @return The parts
    */
   public List<Part> getParts() {
@@ -154,7 +154,7 @@ public class Document extends GenericModel {
 
   /**
    * Gets the time to live.
-   * 
+   *
    * @return the timeToLive
    */
   public Integer getTimeToLive() {
@@ -163,7 +163,7 @@ public class Document extends GenericModel {
 
   /**
    * Gets the user fields.
-   * 
+   *
    * @return the userFields
    */
   public Map<String, String> getUserFields() {
@@ -172,7 +172,7 @@ public class Document extends GenericModel {
 
   /**
    * Sets the expires on.
-   * 
+   *
    * @param expiresOn the expiresOn to set
    */
   public void setExpiresOn(Date expiresOn) {
@@ -181,7 +181,7 @@ public class Document extends GenericModel {
 
   /**
    * Sets the id.
-   * 
+   *
    * @param id The id
    */
   public void setId(String id) {
@@ -190,7 +190,7 @@ public class Document extends GenericModel {
 
   /**
    * Sets the label.
-   * 
+   *
    * @param label The label
    */
   public void setLabel(String label) {
@@ -199,7 +199,7 @@ public class Document extends GenericModel {
 
   /**
    * Sets the last modified.
-   * 
+   *
    * @param lastModified The last_modified
    */
   public void setLastModified(Date lastModified) {
@@ -208,7 +208,7 @@ public class Document extends GenericModel {
 
   /**
    * Sets the name.
-   * 
+   *
    * @param name The name
    */
   public void setName(String name) {
@@ -217,7 +217,7 @@ public class Document extends GenericModel {
 
   /**
    * Sets the parts.
-   * 
+   *
    * @param parts The parts
    */
   public void setParts(List<Part> parts) {
@@ -226,7 +226,7 @@ public class Document extends GenericModel {
 
   /**
    * Sets the time to live in hours
-   * 
+   *
    * @param hours the number of hours to keep the document alive.
    */
   public void setTimeToLive(Integer hours) {
@@ -235,10 +235,25 @@ public class Document extends GenericModel {
 
   /**
    * Sets the user fields.
-   * 
+   *
    * @param userFields the userFields to set
    */
   public void setUserFields(Map<String, String> userFields) {
     this.userFields = userFields;
+  }
+
+  @Override
+  public String toString()
+  {
+    return "Document{" +
+            "expiresOn=" + expiresOn +
+            ", id='" + id + '\'' +
+            ", label='" + label + '\'' +
+            ", lastModified=" + lastModified +
+            ", name='" + name + '\'' +
+            ", parts=" + parts +
+            ", timeToLive=" + timeToLive +
+            ", userFields=" + userFields +
+            '}';
   }
 }
