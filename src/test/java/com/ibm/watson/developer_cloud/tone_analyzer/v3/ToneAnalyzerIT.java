@@ -11,22 +11,17 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.tone_analyzer.v1;
-
-import java.util.List;
+package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Scorecard;
-import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.SynonymOptions;
-import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.SynonymResult;
-import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Tone;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 
 /**
- * The Class ToneAnalyzerTest.
+ * Tone Analyzer Integration tests
  */
 public class ToneAnalyzerIT extends WatsonServiceTest {
 
@@ -42,27 +37,12 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new ToneAnalyzer();
+    service = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_02_11);
     service.setUsernameAndPassword(getValidProperty("tone_analyzer.username"),
         getValidProperty("tone_analyzer.password"));
     service.setEndPoint(getValidProperty("tone_analyzer.url"));
     service.setDefaultHeaders(getDefaultHeaders());
 
-  }
-
-  /**
-   * Test get synonyms.
-   */
-  @Test
-  public void testGetSynonyms() {
-    // Call the service and get the synonym for 'difficult' and 'inferior'
-    final SynonymOptions options =
-        new SynonymOptions().words("difficult", "inferior").limit(3).hops(3);
-
-    final List<SynonymResult> synonyms = service.getSynonyms(options);
-
-    Assert.assertNotNull(synonyms);
-    Assert.assertFalse(synonyms.isEmpty());
   }
 
   @Test
@@ -75,23 +55,13 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
 
 
     // Call the service and get the tone
-    final Tone tone = service.getTone(text, Scorecard.EMAIL);
+    final ToneAnalysis tone = service.getTone(text);
     Assert.assertNotNull(tone);
-    Assert.assertNotNull(tone.getChildren());
-    Assert.assertNotNull(tone.getChildren().get(0));
-    Assert.assertNotNull(tone.getChildren().get(0).getChildren());
-    Assert.assertNotNull(tone.getChildren().get(0).getChildren().get(0));
-    Assert.assertNotNull(tone.getScorecard());
+    Assert.assertNotNull(tone.getDocumentTone());
+    Assert.assertEquals(3, tone.getDocumentTone().getTones().size());
+    Assert.assertNotNull(tone.getSentencesTone());
+    Assert.assertEquals(4, tone.getSentencesTone().size());
+    Assert.assertEquals("I know the times are difficult!", tone.getSentencesTone().get(0).getText());
   }
 
-  /**
-   * Test get the list of scorecards.
-   */
-  @Test
-  public void testGetScorecards() {
-    final List<Scorecard> scorecards = service.getScorecards();
-
-    Assert.assertNotNull(scorecards);
-    Assert.assertFalse(scorecards.isEmpty());
-  }
 }

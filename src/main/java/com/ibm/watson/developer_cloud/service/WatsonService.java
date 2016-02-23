@@ -105,7 +105,8 @@ public abstract class WatsonService {
 
     // Set default headers
     if (defaultHeaders != null) {
-      builder.headers(defaultHeaders);
+      for(String key: defaultHeaders.names())
+        builder.header(key, defaultHeaders.get(key));
     }
 
     // Set User-Agent
@@ -265,7 +266,7 @@ public abstract class WatsonService {
    * @return the error message from the JSON object
    */
   private String getErrorMessage(Response response) {
-    String error = ResponseUtil.getResponseString(response);
+    String error = ResponseUtil.getString(response);
     try {
 
       final JsonObject jsonObject = ResponseUtil.getJsonObject(error);
@@ -302,7 +303,7 @@ public abstract class WatsonService {
    * @return the user agent
    */
   private final String getUserAgent() {
-    return "watson-developer-cloud-java-sdk-2.7.0";
+    return "watson-developer-cloud-java-sdk-2.8.0";
   }
 
   /**
