@@ -13,12 +13,12 @@
  */
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validate;
+
+import java.util.List;
 
 /**
  * Concept returned by the {@link ConceptInsights} service.
@@ -73,6 +73,13 @@ public class Concept extends GenericModel {
     Validate.notNull(concept, "concept cannot be null");
     setName(concept);
     setId(new Graph(accountId, graphName).getId() + "/concepts/" + concept);
+  }
+
+  /** For concept matches as returned by CI **/
+  public Concept(String id, String label)
+  {
+    setId(id);
+    setLabel(label);
   }
 
   /**
@@ -183,5 +190,23 @@ public class Concept extends GenericModel {
    */
   public void setThumbnail(String thumbnail) {
     this.thumbnail = thumbnail;
+  }
+
+  @Override
+  public boolean equals(Object o)
+  {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    if (!super.equals(o)) return false;
+    Concept concept = (Concept) o;
+    return id.equals(concept.id);
+  }
+
+  @Override
+  public int hashCode()
+  {
+    int result = super.hashCode();
+    result = 31 * result + id.hashCode();
+    return result;
   }
 }

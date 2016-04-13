@@ -13,15 +13,15 @@
  */
 package com.ibm.watson.developer_cloud.concept_insights.v2.util;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Concept;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Corpus;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Document;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Graph;
 import com.ibm.watson.developer_cloud.util.Validate;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Helper to validate and format resource ids such as corpus_id, graph_id, concept_id, and
@@ -34,7 +34,8 @@ public class IDHelper {
    * The CONCEPT_ID_REGEX. (format is "/graphs/{account_id}/{graph}/concepts/{concept}")
    */
   private final static String CONCEPT_ID_REGEX =
-      "^/graphs/[_\\-\\w\\s]*/[_\\-\\w\\s]*/concepts/[_\\-\\w\\s]*$";
+      "^/graphs/[_\\-\\w\\s]*/[_\\-\\w\\s]*/concepts/[_\\-\\w\\s\\(\\)]*$";
+//      "^/graphs/[_\\-\\w\\s]*/[_\\-\\w\\s]*/concepts/[_\\-\\w\\s]*$"; // old regex, didn't accept parentheses
 
   /**
    * The CORPUS_ID_REGEX. (format is "/corpora/{account_id}/{corpus}")
