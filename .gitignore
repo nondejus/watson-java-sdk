@@ -10,6 +10,7 @@ gradle
 gradlew
 gradlew.bat
 target
+/classes/
 bin/
 *.iml
 src/test/resources/config.properties

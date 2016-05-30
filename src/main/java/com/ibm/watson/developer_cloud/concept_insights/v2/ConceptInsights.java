@@ -13,10 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.concept_insights.v2;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -339,6 +335,10 @@ public class ConceptInsights extends WatsonService {
     Request request = requestBuilder.build();
 //    System.out.println("request = " + request);
 //    System.out.println("request = " + request.urlString());
+    int length = request.urlString().length();
+    // System.out.println(length);
+    if (length > 2083)
+      System.out.println("Watson-java-sdk|ConceptInsights  WARNING: URL longer than 2083 characters");
     return executeRequest(request, returnType);
   }
 

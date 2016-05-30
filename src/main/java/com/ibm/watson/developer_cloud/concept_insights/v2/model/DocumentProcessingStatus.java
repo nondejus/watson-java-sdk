@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -13,10 +13,10 @@
  */
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
+import java.util.Date;
 
 /**
  * The Class DocumentProcessingState.
@@ -30,10 +30,12 @@ public class DocumentProcessingStatus extends GenericModel {
   /** The status. */
   private String status;
 
+  private String error;
+
 
   /**
    * Gets the last modified.
-   * 
+   *
    * @return The lastModified
    */
   public Date getLastModified() {
@@ -42,7 +44,7 @@ public class DocumentProcessingStatus extends GenericModel {
 
   /**
    * Gets the status.
-   * 
+   *
    * @return The status
    */
   public String getStatus() {
@@ -51,7 +53,7 @@ public class DocumentProcessingStatus extends GenericModel {
 
   /**
    * Sets the last modified.
-   * 
+   *
    * @param lastModified The last_modified
    */
   public void setLastModified(Date lastModified) {
@@ -60,11 +62,30 @@ public class DocumentProcessingStatus extends GenericModel {
 
   /**
    * Sets the status.
-   * 
+   *
    * @param status The status
    */
   public void setStatus(String status) {
     this.status = status;
   }
 
+  public String getError()
+  {
+    return error;
+  }
+
+  public void setError(String error)
+  {
+    this.error = error;
+  }
+
+  @Override
+  public String toString()
+  {
+    return "DocumentProcessingStatus{" +
+            "lastModified=" + lastModified +
+            ", status='" + status + '\'' +
+            ", error='" + error + '\'' +
+            '}';
+  }
 }
