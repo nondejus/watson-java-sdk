@@ -13,10 +13,11 @@
  */
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * The Class Result.
@@ -35,6 +36,18 @@ public class Result extends GenericModel {
 
   /** The score. */
   private Double score;
+
+  // Fixes https://github.com/watson-developer-cloud/java-sdk/issues/309
+  @SerializedName("user_fields")
+  private Map<String, String> userFields;
+  public Map<String, String> getUserFields() {
+    return userFields;
+  }
+  public void setUserFields(Map<String, String> userFields) {
+    this.userFields = userFields;
+  }
+  // End fix
+
 
   /**
    * Gets the explanation tags.

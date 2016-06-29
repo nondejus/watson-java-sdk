@@ -245,14 +245,12 @@ public class ConceptInsights extends WatsonService {
 
     if (parameters.get(CONCEPT_FIELDS) != null) {
       final RequestedFields fields = (RequestedFields) parameters.get(CONCEPT_FIELDS);
-      System.out.println("cfields = " + fields);
       if (fields != null && !fields.isEmpty())
         queryParams.put(CONCEPT_FIELDS, toJson(fields.getFields()));
     }
 
     if (parameters.get(DOCUMENT_FIELDS) != null) {
       final RequestedFields fields = (RequestedFields) parameters.get(DOCUMENT_FIELDS);
-      System.out.println("dfields = " + fields);
       if (fields != null && !fields.isEmpty())
         queryParams.put(DOCUMENT_FIELDS, toJson(fields.getFields()));
     }

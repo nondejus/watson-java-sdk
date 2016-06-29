@@ -19,9 +19,11 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.squareup.okhttp.Response;
+//import gmjonker.util.PrintingReaderWrapper;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -97,10 +99,10 @@ public class ResponseUtil {
    * @return the POJO
    */
   public static <T extends GenericModel> T getObject(Response response, Class<T> type) {
-    JsonReader reader;
     try {
-      reader = new JsonReader(response.body().charStream());
-      final T model = GsonSingleton.getGson().fromJson(reader, type);
+      Reader bodyCharStream = response.body().charStream();
+//      PrintingReaderWrapper printingReaderWrapper = new PrintingReaderWrapper(bodyCharStream);
+      final T model = GsonSingleton.getGson().fromJson(new JsonReader(bodyCharStream), type);
       return model;
     } catch (IOException e) {
       log.log(Level.SEVERE, ERROR_MESSAGE, e);

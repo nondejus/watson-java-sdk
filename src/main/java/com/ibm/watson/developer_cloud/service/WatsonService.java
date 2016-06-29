@@ -188,6 +188,7 @@ public abstract class WatsonService {
 //    try {
 //      System.out.println("response body source = " + response.body().source().readUtf8());
 //      System.out.println("response body source = " + response.body().source().readUtf8());
+//      System.out.println("response body source = " + response.body().source().readUtf8());
 //    } catch (IOException e) {
 //      System.err.println("body source fetching failed dude");
 //      e.printStackTrace();
